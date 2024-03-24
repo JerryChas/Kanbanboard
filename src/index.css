@@ -1,0 +1,45 @@
+*,
+::before,
+::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+
+.app {
+  user-select: none;
+  background-color: rgb(129, 129, 129);
+  font-family: Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: 0.2fr 2.8fr 0.1fr;
+  gap: 0px 0px;
+  grid-template-areas:
+    "header"
+    "main"
+    "footer";
+
+}
+
+header {
+  background-color: rgb(92, 92, 92);
+  border: 1px solid black;
+  grid-area: header;
+
+}
+
+main {
+  grid-area: main;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  padding: 1rem;
+}
+
+footer {
+  background-color: rgb(92, 92, 92);
+  border: 1px solid black;
+  grid-area: footer;
+
+}

@@ -15,7 +15,7 @@ const Task = ({ id, text, createdDate }) => {
 
   return (
     <div
-      className='task'
+      className='Task'
       ref={drag}
       id={id}
       style={{ display: isDragging && 'none' }}>

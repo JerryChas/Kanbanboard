@@ -7,7 +7,7 @@
 }
 
 
-.app {
+.App {
   user-select: none;
   background-color: rgb(129, 129, 129);
   font-family: Arial, Helvetica, sans-serif;
@@ -42,4 +42,23 @@ footer {
   border: 1px solid black;
   grid-area: footer;
 
+}
+
+.Column {
+  border: 1px solid black;
+  border-radius: 5px;
+  width: 300px;
+}
+
+.Task {
+  background-color: beige;
+  border-radius: 5px;
+  padding: 1rem;
+  margin: .5rem;
+}
+
+.modal {
+  background-color: beige;
+  min-width: 300px;
+  min-height: 300px;
 }

@@ -1,7 +1,7 @@
 //  Column.jsx
 
 //* IMPORTS
-import Task from './task/Task.jsx';
+import Task from './Task.jsx';
 import tasklistArray from '../taskList.js';
 
 //  React-dnd

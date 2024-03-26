@@ -2,7 +2,7 @@
 
 const Modal = ({ text, createdDate, status }) => {
   return (
-    <div>
+    <div className='modal'>
       <h3>{text}</h3>
       <p>{createdDate}</p>
       <select name='' id=''>

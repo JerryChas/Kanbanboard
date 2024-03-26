@@ -1,8 +1,8 @@
 //  Column.jsx
 
 //* IMPORTS
-import Task from '../task/Task';
-import tasklistArray from '../../taskList.js';
+import Task from './task/Task.jsx';
+import tasklistArray from '../taskList.js';
 
 //  React-dnd
 import { useDrop } from 'react-dnd';
@@ -28,7 +28,7 @@ const Column = ({ columnTitle, columnStatus }) => {
 
   return (
     <div
-      className='column'
+      className='Column'
       ref={drop}
       style={{ boxShadow: isOver && '0 0 5px black' }}>
       <h2>{columnTitle}</h2>

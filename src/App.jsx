@@ -5,9 +5,14 @@
 //Components
 import Footer from './components/Footer';
 import Header from './components/Header';
-import Kanbanboard from './components/Kanbanboard';
 
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+// Pages
+import Kanbanboard from './Kanbanboard';
+import ColumnPage from './ColumnPage';
+import Missing from './Missing';
+
+//  React Router
+import { Routes, Route } from 'react-router-dom';
 
 // COMPONENT
 function App() {
@@ -15,7 +20,12 @@ function App() {
     <div className='App'>
       <Header />
 
-      <Kanbanboard />
+      <Routes>
+        <Route path='/' element={<Kanbanboard />} />
+        <Route path='/columnPage' element={<ColumnPage />} />
+        <Route path='*' element={<Missing />} />
+      </Routes>
+
       <Footer />
     </div>
   );

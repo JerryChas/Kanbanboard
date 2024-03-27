@@ -1,10 +1,12 @@
 //  Task.jsx
 
 //  React-dnd
-import { useDrag } from 'react-dnd';
+import { useDrag, useDragLayer } from 'react-dnd';
+import CustomDragLayer from '../CustomDragLayer';
 
 // COMPONENT
 const Task = ({ id, text, createdDate }) => {
+  // Drag and Drop
   const [{ isDragging }, drag] = useDrag(() => ({
     type: 'task',
     item: { id: id, text: text },
@@ -13,15 +15,24 @@ const Task = ({ id, text, createdDate }) => {
     }),
   }));
 
+  const { item, offset } = useDragLayer((monitor) => ({
+    isDragging: monitor.isDragging(),
+    item: monitor.getItem(),
+    offset: monitor.getSourceClientOffset(),
+  }));
+
   return (
-    <div
-      className='Task'
-      ref={drag}
-      id={id}
-      style={{ display: isDragging && 'none' }}>
-      <h3>{text}</h3>
-      <p>{createdDate}</p>
-    </div>
+    <>
+      {isDragging && <CustomDragLayer item={item} offset={offset} />}
+      <div
+        className='Task'
+        ref={drag}
+        id={id}
+        style={{ visibility: isDragging && 'hidden' }}>
+        <h3>{text}</h3>
+        <p>{createdDate}</p>
+      </div>
+    </>
   );
 };
 

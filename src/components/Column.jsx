@@ -2,29 +2,35 @@
 
 //* IMPORTS
 import Task from './Task.jsx';
-import tasklistArray from '../taskList.js';
+import tasklist from '../taskList.js';
 
 //  React-dnd
 import { useDrop } from 'react-dnd';
 import { useState } from 'react';
 
 //* COMPONENT
-const Column = ({ columnTitle, columnStatus }) => {
-  const [taskList, setTaskList] = useState(tasklistArray);
+const Column = ({ columnTitle, id }) => {
+  const [tasks, setTasks] = useState(tasklist);
 
   const [{ isOver }, drop] = useDrop(() => ({
     accept: 'task',
-    drop: (t) => moveTask(t.id, columnStatus),
+    drop: (task) => moveTask(task.id, id),
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
     }),
   }));
 
-  const moveTask = (id, status) => {
-    console.log(`Moved task ${id} to: "${status}"`); //! DEBUGG
+  const moveTask = (taskId, columnId) => {
+    console.log(`Moved task ${taskId} to column: "${columnId}"`); //! DEBUGG
+    const taskToMove = tasks.find((task) => task.id === taskId);
+    console.log(taskToMove); //! DEBUGG
   };
 
-  const filteredTasks = taskList.filter((task) => task.status === columnStatus);
+  const filteredTasks = tasks.filter((task) => task.stateId == id);
+
+  const handleClick = () => {
+    console.log('create new task');
+  };
 
   return (
     <div
@@ -39,11 +45,10 @@ const Column = ({ columnTitle, columnStatus }) => {
           id={task.id}
           text={task.text}
           createdDate={task.createdDate}
-          status={task.status}
         />
       ))}
 
-      {columnStatus === 'todo' && <button>Create new Task</button>}
+      {id === 1 && <button onClick={handleClick}>Create new Task</button>}
     </div>
   );
 };

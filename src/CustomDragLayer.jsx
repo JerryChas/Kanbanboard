@@ -1,3 +1,5 @@
+// CustomDragLayer.jsx
+
 import Task from './components/Task';
 
 const CustomDragLayer = ({ item, offset }) => {
@@ -8,11 +10,15 @@ const CustomDragLayer = ({ item, offset }) => {
   return (
     <div
       style={{
-        position: 'absolute',
+        position: 'fixed',
         left: x,
         top: y,
         pointerEvents: 'none',
-        zIndex: 1000, // Ensure drag layer is above other elements
+        zIndex: 1000,
+
+        backgroundColor: 'white',
+        boxShadow: '0 5px 15px rgba(0, 0, 0, 0.3)',
+        borderRadius: '8px',
       }}>
       <Task text={item.text} createdDate={item.createdDate} />
     </div>

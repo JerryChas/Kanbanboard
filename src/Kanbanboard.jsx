@@ -10,36 +10,66 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 import PlusIcon from './Icons/PlusIcon';
 
 const Kanbanboard = () => {
+  const [tasks, setTasks] = useState(taskList);
+  const [newTask, setNewTask] = useState('');
   const [columns, setColumns] = useState([
-    { id: 1, title: 'To Do', tasks: [] },
-    { id: 2, title: 'In Progress', tasks: [] },
-    { id: 3, title: 'Done', tasks: [] },
+    {
+      id: 1,
+      title: 'To Do',
+    },
+    {
+      id: 2,
+      title: 'In Progress',
+    },
+    {
+      id: 3,
+      title: 'Done',
+    },
   ]);
-
-  useEffect(() => {
-    const sortedColumns = columns.map((col) => {
-      const columnTasks = taskList.filter((task) => task.stateId === col.id);
-      return { ...col, tasks: columnTasks };
-    });
-    setColumns(sortedColumns);
-  }, []);
 
   const handleAddColumn = () => {
     const id = columns.length ? columns[columns.length - 1].id + 1 : 1;
-    const newCol = { id, title: `Column ${id}`, tasks: [] };
+    const newCol = { id, title: `Column ${id}` };
     const allColumns = [...columns, newCol];
     setColumns(allColumns);
   };
 
-  console.log(columns);
+  //! DEBUGG
+  // useEffect(() => {
+  //   console.clear();
+  //   tasks.map((t) => console.log(t.text, t.stateid));
+  // }, [tasks]);
+
+  const handleMoveTask = (taskToMove, newState) => {
+    setTasks((prevTasks) =>
+      prevTasks.map((task) =>
+        task.id === taskToMove ? { ...task, stateid: newState } : task
+      )
+    );
+  };
+
+  const handleSubmit = () => {
+    console.log('create new task');
+  };
 
   return (
     <main>
       <DndProvider backend={HTML5Backend}>
         {columns.map((col) => (
-          <Column key={col.id} id={col.id} columnTitle={col.title} />
+          <Column
+            key={col.id}
+            id={col.id}
+            columnTitle={col.title}
+            tasks={tasks}
+            setTasks={setTasks}
+            newTask={newTask}
+            setNewTask={setNewTask}
+            handleSubmit={handleSubmit}
+            handleMoveTask={handleMoveTask}
+            totalColumns={columns.length}
+          />
         ))}
-        <button className='add-column_btn' onClick={() => handleAddColumn()}>
+        <button className='addColumnBtn' onClick={() => handleAddColumn()}>
           <PlusIcon />
         </button>
       </DndProvider>

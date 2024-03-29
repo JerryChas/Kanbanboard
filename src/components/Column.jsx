@@ -2,53 +2,81 @@
 
 //* IMPORTS
 import Task from './Task.jsx';
-import tasklist from '../taskList.js';
+import Trash from '../Icons/TrashIcon.jsx';
+import ColorIcon from '../Icons/ColorIcon.jsx';
 
 //  React-dnd
 import { useDrop } from 'react-dnd';
-import { useState } from 'react';
 
 //* COMPONENT
-const Column = ({ columnTitle, id }) => {
-  const [tasks, setTasks] = useState(tasklist);
-
+const Column = ({
+  columnTitle,
+  id,
+  tasks,
+  newTask,
+  setNewTask,
+  handleSubmit,
+  handleMoveTask,
+  totalColumns,
+}) => {
+  // DROP
   const [{ isOver }, drop] = useDrop(() => ({
     accept: 'task',
-    drop: (task) => moveTask(task.id, id),
+    drop: (task) => handleMoveTask(task.id, id),
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
     }),
   }));
-
-  const moveTask = (taskId, columnId) => {
-    console.log(`Moved task ${taskId} to column: "${columnId}"`); //! DEBUGG
-    const taskToMove = tasks.find((task) => task.id === taskId);
-    console.log(taskToMove); //! DEBUGG
-  };
-
-  const filteredTasks = tasks.filter((task) => task.stateId == id);
-
-  const handleClick = () => {
-    console.log('create new task');
-  };
 
   return (
     <div
       className='Column'
       ref={drop}
       style={{ boxShadow: isOver && '0 0 5px black' }}>
-      <h2>{columnTitle}</h2>
+      <div className='columnHeader'>
+        <h2>{columnTitle}</h2>
+        <button className='trashBtn'>
+          <Trash />
+        </button>
+      </div>
 
-      {filteredTasks.map((task) => (
-        <Task
-          key={task.id}
-          id={task.id}
-          text={task.text}
-          createdDate={task.createdDate}
-        />
-      ))}
+      <ul className='taskList'>
+        {tasks
+          .filter((task) => task.stateid === id) // Filtrera uppgifter baserat på column.id och tasks.stateid
+          .map((task) => (
+            <Task
+              key={task.id}
+              id={task.id}
+              stateid={task.stateid}
+              text={task.text}
+              createdDate={task.createdDate}
+              handleMoveTask={handleMoveTask}
+              totalColumns={totalColumns}
+            />
+          ))}
+      </ul>
+      {id === 1 && (
+        <form className='addTaskForm' onSubmit={(e) => e.preventDefault()}>
+          <label htmlFor='addTask'>Add task</label>
+          <input
+            type='text'
+            id='addTask'
+            autoComplete='off'
+            placeholder='New Task...'
+            value={newTask}
+            onChange={(e) => setNewTask(e.target.value)}
+          />
+          <button type='submit' onClick={handleSubmit}>
+            Add
+          </button>
+        </form>
+      )}
 
-      {id === 1 && <button onClick={handleClick}>Create new Task</button>}
+      <div className='columnFooter'>
+        <div className='ColorPaletteBtn'>
+          <ColorIcon />
+        </div>
+      </div>
     </div>
   );
 };

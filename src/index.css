@@ -6,12 +6,26 @@
   padding: 0;
 }
 
+button,
+input[type="submit"],
+input[type="reset"] {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+}
+
 
 .App {
   user-select: none;
-  background-color: rgb(129, 129, 129);
+  background-color: rgb(182, 177, 177);
   font-family: Arial, Helvetica, sans-serif;
   min-height: 100vh;
+  min-width: fit-content;
+  overflow: hidden;
   display: grid;
   grid-template-rows: 0.2fr 2.8fr 0.1fr;
   gap: 0px 0px;
@@ -23,6 +37,9 @@
 }
 
 header {
+  position: fixed;
+  width: 100%;
+  padding: .3rem;
   background-color: rgb(92, 92, 92);
   border: 1px solid black;
   grid-area: header;
@@ -45,21 +62,130 @@ footer {
 }
 
 .Column {
+  display: flex;
+  flex-direction: column;
+
+  background-color: rgb(38, 38, 48);
   border: 1px solid black;
   border-radius: 5px;
   width: 300px;
-}
+  height: 600px;
+  padding: .2rem;
 
-.Task {
-  background-color: beige;
-  border-radius: 5px;
-  padding: 1rem;
-  margin: .5rem;
-  width: 270px;
-}
+  .columnHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
-.modal {
-  background-color: beige;
-  min-width: 300px;
-  min-height: 300px;
-}
+    background-color: #616161;
+    padding: .3rem;
+    height: 30px;
+
+    h2 {}
+
+    .trashBtn {
+      width: 1.2rem;
+
+      &:hover {
+        color: rgb(151, 0, 0);
+      }
+    }
+  }
+
+  .taskList {
+    display: flex;
+    flex-direction: column;
+    gap: .7rem;
+
+
+    list-style-type: none;
+    padding: .2rem;
+    margin-top: .5rem;
+    height: inherit;
+
+    .Task {
+      display: flex;
+      justify-content: space-between;
+
+      background-color: rgb(172, 172, 177);
+      border-radius: 5px;
+      width: 100%;
+      height: 60px;
+
+      .taskContent {
+
+        display: flex;
+        gap: .2rem;
+        flex-direction: column;
+        justify-content: center;
+
+        width: inherit;
+        padding: 0 1rem;
+
+        h3 {}
+
+        p {
+
+          font-size: .8rem;
+          align-items: center;
+        }
+      }
+
+      .navigateTaskBtn {
+        width: 25px;
+
+
+        &:hover {
+          transform: scale(1.3);
+        }
+
+        &:disabled {
+          opacity: .1;
+
+        }
+      }
+    }
+
+  }
+
+  .addTaskForm {
+    display: flex;
+
+    label {
+      position: absolute;
+      top: -10000000px;
+    }
+
+    input {
+      width: 100%;
+    }
+  }
+
+  .columnFooter {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    height: 30px;
+    border-top: 2px solid black;
+    border-radius: 2px;
+
+
+    .ColorPaletteBtn {
+      width: 1.2rem;
+
+      &:hover,
+      &:active {
+        color: white;
+      }
+    }
+
+
+  }
+
+
+
+  .modal {
+    background-color: beige;
+    min-width: 300px;
+    min-height: 300px;
+  }

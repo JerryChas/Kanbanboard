@@ -1,17 +1,26 @@
 //  Task.jsx
 
+import { Left, Right } from '../Icons/ArrowIcons';
+
 //  React-dnd
 import { useDrag, useDragLayer } from 'react-dnd';
 import CustomDragLayer from '../CustomDragLayer';
 
 // COMPONENT
-const Task = ({ id, text, createdDate }) => {
+const Task = ({
+  id,
+  stateid,
+  text,
+  createdDate,
+  handleMoveTask,
+  totalColumns,
+}) => {
   // Drag and Drop
   const [{ isDragging }, drag] = useDrag(() => ({
     type: 'task',
     item: { id: id, text: text },
     collect: (monitor) => ({
-      isDragging: !!monitor.isDragging(),
+      isDragging: monitor.isDragging(),
     }),
   }));
 
@@ -23,15 +32,32 @@ const Task = ({ id, text, createdDate }) => {
 
   return (
     <>
-      {isDragging && <CustomDragLayer item={item} offset={offset} />}
-      <div
+      {/* {isDragging && <CustomDragLayer item={item} offset={offset} />} */}
+
+      <li
         className='Task'
         ref={drag}
         id={id}
+        stateid={stateid}
         style={{ visibility: isDragging && 'hidden' }}>
-        <h3>{text}</h3>
-        <p>{createdDate}</p>
-      </div>
+        <button
+          className='navigateTaskBtn'
+          onClick={() => handleMoveTask(id, stateid - 1)}
+          disabled={stateid === 1}>
+          <Left />
+        </button>
+        <div className='taskContent'>
+          <h3>{text}</h3>
+          <p>{createdDate}</p>
+        </div>
+
+        <button
+          className='navigateTaskBtn'
+          onClick={() => handleMoveTask(id, stateid + 1)}
+          disabled={stateid === totalColumns}>
+          <Right />
+        </button>
+      </li>
     </>
   );
 };

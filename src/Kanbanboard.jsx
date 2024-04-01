@@ -11,7 +11,7 @@ import PlusIcon from './Icons/PlusIcon';
 
 const Kanbanboard = () => {
   const [tasks, setTasks] = useState(taskList);
-  const [newTask, setNewTask] = useState('');
+  const [taskText, setTaskText] = useState('');
   const [columns, setColumns] = useState([
     {
       id: 1,
@@ -55,15 +55,16 @@ const Kanbanboard = () => {
   return (
     <main>
       <DndProvider backend={HTML5Backend}>
-        {columns.map((col) => (
+        {columns.map((col, index) => (
           <Column
             key={col.id}
-            id={col.id}
+            columnIndex={index}
+            columnId={col.id}
             columnTitle={col.title}
             tasks={tasks}
             setTasks={setTasks}
-            newTask={newTask}
-            setNewTask={setNewTask}
+            taskText={taskText}
+            setTaskText={setTaskText}
             handleSubmit={handleSubmit}
             handleMoveTask={handleMoveTask}
             totalColumns={columns.length}

@@ -23,12 +23,10 @@ input[type="reset"] {
   user-select: none;
   background-color: rgb(182, 177, 177);
   font-family: Arial, Helvetica, sans-serif;
-  min-height: 100vh;
+  height: 100vh;
   min-width: fit-content;
-  overflow: hidden;
   display: grid;
-  grid-template-rows: 0.2fr 2.8fr 0.1fr;
-  gap: 0px 0px;
+  grid-template-rows: 0.2fr 2.7fr 0.1fr;
   grid-template-areas:
     "header"
     "main"
@@ -37,12 +35,11 @@ input[type="reset"] {
 }
 
 header {
-  position: fixed;
+  grid-area: header;
   width: 100%;
   padding: .3rem;
   background-color: rgb(92, 92, 92);
   border: 1px solid black;
-  grid-area: header;
 
 }
 
@@ -50,28 +47,36 @@ main {
   grid-area: main;
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: 2rem;
-  padding: 1rem;
+  padding: 2rem;
+
+
+  /* overflow: hidden; */
+  /* overflow-x: scroll; */
 }
 
 footer {
+  grid-area: footer;
   background-color: rgb(92, 92, 92);
   border: 1px solid black;
-  grid-area: footer;
 
 }
 
+/* COLUMN */
 .Column {
   display: flex;
   flex-direction: column;
 
   background-color: rgb(38, 38, 48);
+
   border: 1px solid black;
   border-radius: 5px;
-  width: 300px;
-  height: 600px;
+  min-width: 300px;
+  height: 70vh;
   padding: .2rem;
 
+  /* COLUMN HEADER */
   .columnHeader {
     display: flex;
     justify-content: space-between;
@@ -92,6 +97,7 @@ footer {
     }
   }
 
+  /* LIST OF TASKS */
   .taskList {
     display: flex;
     flex-direction: column;
@@ -102,7 +108,23 @@ footer {
     padding: .2rem;
     margin-top: .5rem;
     height: inherit;
+    overflow-y: scroll;
 
+    /* hide scrollbar */
+    ::-webkit-scrollbar {
+      display: none;
+      /* Chrome, Safari, Edge/Safari and WebView */
+    }
+
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+
+
+
+
+    /* TASK CARD */
     .Task {
       display: flex;
       justify-content: space-between;
@@ -134,7 +156,6 @@ footer {
       .navigateTaskBtn {
         width: 25px;
 
-
         &:hover {
           transform: scale(1.3);
         }
@@ -148,19 +169,27 @@ footer {
 
   }
 
+  /* NEW TASK */
   .addTaskForm {
     display: flex;
 
+    /* hidden label */
     label {
       position: absolute;
       top: -10000000px;
     }
 
     input {
+      font-size: 1rem;
       width: 100%;
+      height: 40px;
+      margin-bottom: .3rem;
+      padding: 1rem;
     }
   }
 
+
+  /* COLUMN FOOTER */
   .columnFooter {
     display: flex;
     align-items: center;
@@ -184,10 +213,18 @@ footer {
 
 
 
-  .modal {
-    background-color: beige;
-    min-width: 300px;
-    min-height: 300px;
-  }
 
+}
+
+.addColumnBtn {
+  align-self: center;
+  /* background-color: aquamarine; */
+  height: fit-content;
+}
+
+
+.modal {
+  background-color: beige;
+  min-width: 300px;
+  min-height: 300px;
 }

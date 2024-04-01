@@ -11,22 +11,34 @@ import { useDrop } from 'react-dnd';
 //* COMPONENT
 const Column = ({
   columnTitle,
-  id,
+  columnIndex,
+  columnId,
   tasks,
-  newTask,
-  setNewTask,
-  handleSubmit,
+  setTasks,
+  taskText,
+  setTaskText,
   handleMoveTask,
   totalColumns,
 }) => {
   // DROP
   const [{ isOver }, drop] = useDrop(() => ({
     accept: 'task',
-    drop: (task) => handleMoveTask(task.id, id),
+    drop: (task) => handleMoveTask(task.id, columnId),
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
     }),
   }));
+
+  const handleNewTask = (e) => {
+    e.preventDefault();
+    const id = tasks.length ? tasks[tasks.length - 1].id + 1 : 1;
+    const date = new Date().getUTCDate();
+    const newTask = { id, text: taskText, createdAt: date, stateid: 1 };
+    setTasks((prevTasks) => [...prevTasks, newTask]);
+    setTaskText('');
+
+    console.log(tasks); //! DEBUGG
+  };
 
   return (
     <div
@@ -42,33 +54,34 @@ const Column = ({
 
       <ul className='taskList'>
         {tasks
-          .filter((task) => task.stateid === id) // Filtrera uppgifter baserat på column.id och tasks.stateid
+          .filter((task) => task.stateid === columnId) // Filtrera uppgifter baserat på column.id och tasks.stateid
           .map((task) => (
             <Task
               key={task.id}
               id={task.id}
               stateid={task.stateid}
               text={task.text}
-              createdDate={task.createdDate}
+              createdAt={task.createdAt}
               handleMoveTask={handleMoveTask}
               totalColumns={totalColumns}
             />
           ))}
       </ul>
-      {id === 1 && (
-        <form className='addTaskForm' onSubmit={(e) => e.preventDefault()}>
+      {/* ADD NEW TASK */}
+      {columnIndex === 0 && (
+        <form className='addTaskForm' onSubmit={handleNewTask}>
           <label htmlFor='addTask'>Add task</label>
           <input
             type='text'
             id='addTask'
             autoComplete='off'
-            placeholder='New Task...'
-            value={newTask}
-            onChange={(e) => setNewTask(e.target.value)}
+            placeholder='Write here...'
+            value={taskText}
+            onChange={(e) => setTaskText(e.target.value)}
           />
-          <button type='submit' onClick={handleSubmit}>
+          {/* <button type='submit' onClick={handleSubmit}>
             Add
-          </button>
+          </button> */}
         </form>
       )}
 

@@ -11,7 +11,7 @@ const Task = ({
   id,
   stateid,
   text,
-  createdDate,
+  createdAt,
   handleMoveTask,
   totalColumns,
 }) => {
@@ -48,7 +48,7 @@ const Task = ({
         </button>
         <div className='taskContent'>
           <h3>{text}</h3>
-          <p>{createdDate}</p>
+          <p>{createdAt}</p>
         </div>
 
         <button

@@ -54,26 +54,29 @@ const Kanbanboard = () => {
 
   return (
     <main>
-      <DndProvider backend={HTML5Backend}>
-        {columns.map((col, index) => (
-          <Column
-            key={col.id}
-            columnIndex={index}
-            columnId={col.id}
-            columnTitle={col.title}
-            tasks={tasks}
-            setTasks={setTasks}
-            taskText={taskText}
-            setTaskText={setTaskText}
-            handleSubmit={handleSubmit}
-            handleMoveTask={handleMoveTask}
-            totalColumns={columns.length}
-          />
-        ))}
-        <button className='addColumnBtn' onClick={() => handleAddColumn()}>
-          <PlusIcon />
-        </button>
-      </DndProvider>
+      <div className='columnsContainer'>
+        <div></div>
+        <DndProvider backend={HTML5Backend}>
+          {columns.map((col, index) => (
+            <Column
+              key={col.id}
+              columnIndex={index}
+              columnId={col.id}
+              columnTitle={col.title}
+              tasks={tasks}
+              setTasks={setTasks}
+              taskText={taskText}
+              setTaskText={setTaskText}
+              handleSubmit={handleSubmit}
+              handleMoveTask={handleMoveTask}
+              totalColumns={columns.length}
+            />
+          ))}
+          <button className='addColumnBtn' onClick={() => handleAddColumn()}>
+            <PlusIcon />
+          </button>
+        </DndProvider>
+      </div>
     </main>
   );
 };

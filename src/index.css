@@ -48,8 +48,8 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 2rem;
-  padding: 2rem;
+  /* gap: 2rem; */
+  /* padding: 2rem; */
 
 
   /* overflow: hidden; */
@@ -63,13 +63,20 @@ footer {
 
 }
 
+.columnsContainer {
+  background-color: white;
+  display: flex;
+  gap: 1rem;
+  max-width: 85vw;
+  overflow-x: scroll;
+}
+
 /* COLUMN */
 .Column {
   display: flex;
   flex-direction: column;
 
   background-color: rgb(38, 38, 48);
-
   border: 1px solid black;
   border-radius: 5px;
   min-width: 300px;

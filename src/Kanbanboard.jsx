@@ -55,7 +55,7 @@ const Kanbanboard = () => {
   return (
     <main>
       <div className='columnsContainer'>
-        <div></div>
+        <div className='fadeEdge'></div>
         <DndProvider backend={HTML5Backend}>
           {columns.map((col, index) => (
             <Column
@@ -76,6 +76,7 @@ const Kanbanboard = () => {
             <PlusIcon />
           </button>
         </DndProvider>
+        <div className='fadeEdge'></div>
       </div>
     </main>
   );

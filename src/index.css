@@ -64,11 +64,30 @@ footer {
 }
 
 .columnsContainer {
-  background-color: white;
+  /* background-color: white; */
+  position: relative;
   display: flex;
   gap: 1rem;
   max-width: 85vw;
+  height: 70vh;
   overflow-x: scroll;
+
+
+  .fadeEdge {
+    position: fixed;
+    transform: translateX(-45%);
+    width: 50px;
+    height: inherit;
+    background: linear-gradient(-90deg, rgba(0, 0, 0, 0) 0%, rgba(255, 255, 255, 1) 100%);
+
+    &:nth-of-type(1) {
+      /* background-color: aqua; */
+      transform: rotate(180deg) translateX(-1800%);
+
+
+
+    }
+  }
 }
 
 /* COLUMN */
@@ -79,8 +98,8 @@ footer {
   background-color: rgb(38, 38, 48);
   border: 1px solid black;
   border-radius: 5px;
-  min-width: 300px;
-  height: 70vh;
+  min-width: 250px;
+  height: 100%;
   padding: .2rem;
 
   /* COLUMN HEADER */
@@ -114,7 +133,7 @@ footer {
     list-style-type: none;
     padding: .2rem;
     margin-top: .5rem;
-    height: inherit;
+    height: 100%;
     overflow-y: scroll;
 
     /* hide scrollbar */

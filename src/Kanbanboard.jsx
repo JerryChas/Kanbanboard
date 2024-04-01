@@ -54,8 +54,8 @@ const Kanbanboard = () => {
 
   return (
     <main>
+      <div className='fadeEdge'></div>
       <div className='columnsContainer'>
-        <div className='fadeEdge'></div>
         <DndProvider backend={HTML5Backend}>
           {columns.map((col, index) => (
             <Column
@@ -72,12 +72,12 @@ const Kanbanboard = () => {
               totalColumns={columns.length}
             />
           ))}
-          <button className='addColumnBtn' onClick={() => handleAddColumn()}>
-            <PlusIcon />
-          </button>
         </DndProvider>
-        <div className='fadeEdge'></div>
       </div>
+      <div className='fadeEdge'></div>
+      <button className='addColumnBtn' onClick={() => handleAddColumn()}>
+        <PlusIcon />
+      </button>
     </main>
   );
 };

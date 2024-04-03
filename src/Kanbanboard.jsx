@@ -57,10 +57,12 @@ const Kanbanboard = () => {
     console.log('create new task');
   };
 
-  const handleModalPopup = (TaskId) => {
-    console.log('Show in modal', TaskId);
-    const selectedTask = tasks.find((task) => task.id === TaskId);
+  const handleToggleModal = (TaskId) => {
+    if (isModalOpen) {
+      return setIsModalOpen(false);
+    }
 
+    const selectedTask = tasks.find((task) => task.id === TaskId);
     setSelectedTask(selectedTask);
     setIsModalOpen(true);
   };
@@ -82,7 +84,7 @@ const Kanbanboard = () => {
               setTaskText={setTaskText}
               handleSubmit={handleSubmit}
               handleMoveTask={handleMoveTask}
-              handleModalPopup={handleModalPopup}
+              handleToggleModal={handleToggleModal}
               totalColumns={columns.length}
             />
           ))}
@@ -94,7 +96,7 @@ const Kanbanboard = () => {
       </DndProvider>
 
       {isModalOpen && selectedTask && (
-        <Modal text={selectedTask.text} createdAt={selectedTask.createdAt} />
+        <Modal closeModal={handleToggleModal} task={selectedTask} />
       )}
     </main>
   );

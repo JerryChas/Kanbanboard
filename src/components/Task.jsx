@@ -14,7 +14,7 @@ const Task = ({
   text,
   createdAt,
   handleMoveTask,
-  handleModalPopup,
+  handleToggleModal,
   totalColumns,
 }) => {
   // Drag and Drop
@@ -48,7 +48,7 @@ const Task = ({
           disabled={stateid === 1}>
           <Left />
         </button>
-        <div className='taskContent' onClick={() => handleModalPopup(id)}>
+        <div className='taskContent' onClick={() => handleToggleModal(id)}>
           <h3>{text}</h3>
           <p>{createdAt}</p>
         </div>

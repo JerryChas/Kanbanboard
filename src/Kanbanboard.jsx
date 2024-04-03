@@ -1,6 +1,6 @@
 // Kanbanboard.jsx
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Column from './components/Column';
 import taskList from './taskList.js';
 
@@ -10,6 +10,7 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 import PlusIcon from './Icons/PlusIcon';
 
 const Kanbanboard = () => {
+  const columnsContainerRef = useRef(null);
   const [tasks, setTasks] = useState(taskList);
   const [taskText, setTaskText] = useState('');
   const [columns, setColumns] = useState([
@@ -32,6 +33,13 @@ const Kanbanboard = () => {
     const newCol = { id, title: `Column ${id}` };
     const allColumns = [...columns, newCol];
     setColumns(allColumns);
+
+    //! Får den inte till att scrolla till slutet
+    console.log(columnsContainerRef.current);
+    if (columnsContainerRef.current) {
+      columnsContainerRef.current.scrollLeft =
+        columnsContainerRef.current.scrollWidth;
+    }
   };
 
   //! DEBUGG
@@ -56,7 +64,7 @@ const Kanbanboard = () => {
     <main>
       <DndProvider backend={HTML5Backend}>
         <div className='fadeEdge'></div>
-        <div className='columnsContainer'>
+        <div ref={columnsContainerRef} className='columnsContainer'>
           {columns.map((col, index) => (
             <Column
               key={col.id}

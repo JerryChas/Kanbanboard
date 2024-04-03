@@ -85,7 +85,7 @@ footer {
 }
 
 .fadeEdge {
-
+  pointer-events: none;
   /* left: 0; */
   transform: translateX(99%);
   z-index: 1;

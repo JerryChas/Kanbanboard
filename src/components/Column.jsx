@@ -18,6 +18,7 @@ const Column = ({
   taskText,
   setTaskText,
   handleMoveTask,
+  handleModalPopup,
   totalColumns,
 }) => {
   // DROP
@@ -63,6 +64,7 @@ const Column = ({
               text={task.text}
               createdAt={task.createdAt}
               handleMoveTask={handleMoveTask}
+              handleModalPopup={handleModalPopup}
               totalColumns={totalColumns}
             />
           ))}

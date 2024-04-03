@@ -8,9 +8,12 @@ import taskList from './taskList.js';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import PlusIcon from './Icons/PlusIcon';
+import Modal from './components/Modal.jsx';
 
 const Kanbanboard = () => {
   const columnsContainerRef = useRef(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedTask, setSelectedTask] = useState(null);
   const [tasks, setTasks] = useState(taskList);
   const [taskText, setTaskText] = useState('');
   const [columns, setColumns] = useState([
@@ -42,12 +45,6 @@ const Kanbanboard = () => {
     }
   };
 
-  //! DEBUGG
-  // useEffect(() => {
-  //   console.clear();
-  //   tasks.map((t) => console.log(t.text, t.stateid));
-  // }, [tasks]);
-
   const handleMoveTask = (taskToMove, newState) => {
     setTasks((prevTasks) =>
       prevTasks.map((task) =>
@@ -58,6 +55,14 @@ const Kanbanboard = () => {
 
   const handleSubmit = () => {
     console.log('create new task');
+  };
+
+  const handleModalPopup = (TaskId) => {
+    console.log('Show in modal', TaskId);
+    const selectedTask = tasks.find((task) => task.id === TaskId);
+
+    setSelectedTask(selectedTask);
+    setIsModalOpen(true);
   };
 
   return (
@@ -77,6 +82,7 @@ const Kanbanboard = () => {
               setTaskText={setTaskText}
               handleSubmit={handleSubmit}
               handleMoveTask={handleMoveTask}
+              handleModalPopup={handleModalPopup}
               totalColumns={columns.length}
             />
           ))}
@@ -86,6 +92,10 @@ const Kanbanboard = () => {
         </div>
         <div className='fadeEdge'></div>
       </DndProvider>
+
+      {isModalOpen && selectedTask && (
+        <Modal text={selectedTask.text} createdAt={selectedTask.createdAt} />
+      )}
     </main>
   );
 };

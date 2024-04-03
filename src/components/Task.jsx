@@ -5,6 +5,7 @@ import { Left, Right } from '../Icons/ArrowIcons';
 //  React-dnd
 import { useDrag, useDragLayer } from 'react-dnd';
 import CustomDragLayer from '../CustomDragLayer';
+import Modal from './Modal';
 
 // COMPONENT
 const Task = ({
@@ -13,6 +14,7 @@ const Task = ({
   text,
   createdAt,
   handleMoveTask,
+  handleModalPopup,
   totalColumns,
 }) => {
   // Drag and Drop
@@ -46,7 +48,7 @@ const Task = ({
           disabled={stateid === 1}>
           <Left />
         </button>
-        <div className='taskContent'>
+        <div className='taskContent' onClick={() => handleModalPopup(id)}>
           <h3>{text}</h3>
           <p>{createdAt}</p>
         </div>

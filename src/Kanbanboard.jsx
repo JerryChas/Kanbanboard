@@ -106,6 +106,7 @@ const Kanbanboard = () => {
             handleDeleteTask(selectedTask);
           }}
           content={selectedTask}
+          source={columns.find((c) => c.id === selectedTask.stateid)}
         />
       )}
     </main>

@@ -1,6 +1,6 @@
 // Modal.jsx
 
-const Modal = ({ content, onClose, onDelete }) => {
+const Modal = ({ content, source, onClose, onDelete }) => {
   return (
     <div className='modal' onClick={onClose}>
       <div
@@ -8,7 +8,7 @@ const Modal = ({ content, onClose, onDelete }) => {
         onClick={(e) => {
           e.stopPropagation();
         }}>
-        <div className='columnName'>columnName</div>
+        <div className='columnName'>{source.title}</div>
         <button className='closeBtn' onClick={onClose}>
           X
         </button>

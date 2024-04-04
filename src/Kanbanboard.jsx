@@ -15,7 +15,7 @@ const Kanbanboard = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
   const [tasks, setTasks] = useState(taskList);
-  const [taskText, setTaskText] = useState('');
+  const [taskTitle, setTaskTitle] = useState('');
   const [columns, setColumns] = useState([
     {
       id: 1,
@@ -84,8 +84,8 @@ const Kanbanboard = () => {
               columnTitle={col.title}
               tasks={tasks}
               setTasks={setTasks}
-              taskText={taskText}
-              setTaskText={setTaskText}
+              taskTitle={taskTitle}
+              setTaskTitle={setTaskTitle}
               handleSubmit={handleSubmit}
               handleMoveTask={handleMoveTask}
               handleToggleModal={handleToggleModal}
@@ -105,8 +105,9 @@ const Kanbanboard = () => {
           onDelete={() => {
             handleDeleteTask(selectedTask);
           }}
-          content={selectedTask}
-          source={columns.find((c) => c.id === selectedTask.stateid)}
+          task={selectedTask}
+          column={columns.find((c) => c.id === selectedTask.stateid)}
+          setTasks={setTasks}
         />
       )}
     </main>

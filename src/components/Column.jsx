@@ -15,8 +15,8 @@ const Column = ({
   columnId,
   tasks,
   setTasks,
-  taskText,
-  setTaskText,
+  taskTitle,
+  setTaskTitle,
   handleMoveTask,
   handleToggleModal,
   totalColumns,
@@ -34,9 +34,9 @@ const Column = ({
     e.preventDefault();
     const id = tasks.length ? tasks[tasks.length - 1].id + 1 : 1;
     const date = new Date().getUTCDate();
-    const newTask = { id, text: taskText, createdAt: date, stateid: 1 };
+    const newTask = { id, title: taskTitle, createdAt: date, stateid: 1 };
     setTasks((prevTasks) => [...prevTasks, newTask]);
-    setTaskText('');
+    setTaskTitle('');
   };
 
   return (
@@ -59,7 +59,7 @@ const Column = ({
               key={task.id}
               id={task.id}
               stateid={task.stateid}
-              text={task.text}
+              title={task.title}
               createdAt={task.createdAt}
               handleMoveTask={handleMoveTask}
               handleToggleModal={handleToggleModal}
@@ -77,8 +77,8 @@ const Column = ({
             autoComplete='off'
             placeholder='What to do..'
             required
-            value={taskText}
-            onChange={(e) => setTaskText(e.target.value)}
+            value={taskTitle}
+            onChange={(e) => setTaskTitle(e.target.value)}
           />
           {/* <button type='submit' onClick={handleSubmit}>
             Add

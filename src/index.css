@@ -362,15 +362,15 @@ footer {
       font-weight: 900;
     }
 
-    .text {
+    #taskTitle {
       font-size: 2rem;
     }
 
-    .createdAt {
+    .date {
       opacity: 0.6;
     }
 
-    .description {
+    #taskBody {
       background-color: #2d6a4f83;
     }
 

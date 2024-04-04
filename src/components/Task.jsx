@@ -11,7 +11,7 @@ import Modal from './Modal';
 const Task = ({
   id,
   stateid,
-  text,
+  title,
   createdAt,
   handleMoveTask,
   handleToggleModal,
@@ -20,7 +20,7 @@ const Task = ({
   // Drag and Drop
   const [{ isDragging }, drag] = useDrag(() => ({
     type: 'task',
-    item: { id: id, text: text },
+    item: { id: id, title: title },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
@@ -49,7 +49,7 @@ const Task = ({
           <Left />
         </button>
         <div className='taskContent' onClick={() => handleToggleModal(id)}>
-          <h3>{text}</h3>
+          <h3>{title}</h3>
           <p>{createdAt}</p>
         </div>
 

@@ -37,8 +37,6 @@ const Column = ({
     const newTask = { id, text: taskText, createdAt: date, stateid: 1 };
     setTasks((prevTasks) => [...prevTasks, newTask]);
     setTaskText('');
-
-    console.log(tasks); //! DEBUGG
   };
 
   return (
@@ -77,7 +75,8 @@ const Column = ({
             type='text'
             id='addTask'
             autoComplete='off'
-            placeholder='Write here...'
+            placeholder='What to do..'
+            required
             value={taskText}
             onChange={(e) => setTaskText(e.target.value)}
           />

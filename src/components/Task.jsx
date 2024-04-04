@@ -13,6 +13,7 @@ const Task = ({
   stateid,
   title,
   createdAt,
+  editedAt,
   handleMoveTask,
   handleToggleModal,
   totalColumns,
@@ -50,7 +51,7 @@ const Task = ({
         </button>
         <div className='taskContent' onClick={() => handleToggleModal(id)}>
           <h3>{title}</h3>
-          <p>{createdAt}</p>
+          {editedAt ? <p>{editedAt}</p> : <p>{createdAt}</p>}
         </div>
 
         <button

@@ -33,8 +33,13 @@ const Column = ({
   const handleNewTask = (e) => {
     e.preventDefault();
     const id = tasks.length ? tasks[tasks.length - 1].id + 1 : 1;
-    const date = new Date().getUTCDate();
-    const newTask = { id, title: taskTitle, createdAt: date, stateid: 1 };
+    const date = new Date();
+    const newTask = {
+      id,
+      title: taskTitle,
+      createdAt: date.toLocaleString(),
+      stateid: 1,
+    };
     setTasks((prevTasks) => [...prevTasks, newTask]);
     setTaskTitle('');
   };
@@ -61,6 +66,7 @@ const Column = ({
               stateid={task.stateid}
               title={task.title}
               createdAt={task.createdAt}
+              editedAt={task.editedAt}
               handleMoveTask={handleMoveTask}
               handleToggleModal={handleToggleModal}
               totalColumns={totalColumns}

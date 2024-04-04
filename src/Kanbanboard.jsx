@@ -61,7 +61,6 @@ const Kanbanboard = () => {
     if (isModalOpen) {
       return setIsModalOpen(false);
     }
-
     const selectedTask = tasks.find((task) => task.id === TaskId);
     setSelectedTask(selectedTask);
     setIsModalOpen(true);

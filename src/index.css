@@ -27,8 +27,8 @@ input[type="reset"] {
   --tertiary-color: #2d6a4f;
 
   /* Ljusare versioner av huvudfärgen för 30% */
-  --primary-light: #4573a4;
-  --primary-lighter: #6799c2;
+  --primary-light: #5784b4;
+  --primary-lighter: #98b8d3;
 
   /* Mörkare versioner av sekundär färg för 10% */
   --secondary-dark: #2b2b2b;
@@ -39,7 +39,8 @@ input[type="reset"] {
   --tertiary-lighter: #47a07d;
 
   /*  Textfärg */
-  --text-color: #000000;
+  --text-color-primary: #ffffff;
+  --text-color-secondary: #000000;
 }
 
 
@@ -221,7 +222,6 @@ footer {
       overflow: hidden;
 
       .taskContent {
-        background-color: antiquewhite;
 
         display: flex;
         flex: 1;

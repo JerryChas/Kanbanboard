@@ -67,6 +67,10 @@ const Kanbanboard = () => {
     setIsModalOpen(true);
   };
 
+  const handleDeleteTask = (taskToDelete) => {
+    setTasks(tasks.filter((t) => t !== taskToDelete));
+    setIsModalOpen(false);
+  };
   return (
     <main>
       <DndProvider backend={HTML5Backend}>
@@ -96,7 +100,13 @@ const Kanbanboard = () => {
       </DndProvider>
 
       {isModalOpen && selectedTask && (
-        <Modal closeModal={handleToggleModal} task={selectedTask} />
+        <Modal
+          onClose={handleToggleModal}
+          onDelete={() => {
+            handleDeleteTask(selectedTask);
+          }}
+          content={selectedTask}
+        />
       )}
     </main>
   );

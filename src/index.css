@@ -89,16 +89,17 @@ footer {
 .fadeEdge {
   pointer-events: none;
   /* left: 0; */
-  transform: translateX(99%);
+  transform: translateX(150%);
   z-index: 1;
 
-  width: 50px;
+  width: 30px;
   height: 80vh;
-  background: linear-gradient(-90deg, rgba(0, 0, 0, 0) 0%, var(--primary-color) 100%);
-  /* border-left: 1px solid black; */
+  background: linear-gradient(-90deg, rgba(0, 0, 0, 0) 0%, var(--primary-color) 90%);
+  /* border: 1px solid black; */
 
   &:nth-last-of-type(1) {
-    transform: rotate(180deg) translateX(99%);
+    transform: rotate(180deg) translateX(150%);
+
   }
 }
 

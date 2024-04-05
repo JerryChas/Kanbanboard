@@ -57,9 +57,11 @@ const Column = ({
         className='columnLink noStyle'>
         <div className='columnHeader'>
           <h2>{columnTitle}</h2>
-          <button onClick={(e) => onDelete(columnId, e)} className='trashBtn'>
-            <Trash />
-          </button>
+          {columnIndex !== 0 && (
+            <button onClick={(e) => onDelete(columnId, e)} className='trashBtn'>
+              <Trash />
+            </button>
+          )}
         </div>
       </Link>
 

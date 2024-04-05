@@ -7,6 +7,7 @@ import ColorIcon from '../Icons/ColorIcon.jsx';
 
 //  React-dnd
 import { useDrop } from 'react-dnd';
+import { Link } from 'react-router-dom';
 
 //* COMPONENT
 const Column = ({
@@ -18,6 +19,7 @@ const Column = ({
   taskTitle,
   setTaskTitle,
   handleMoveTask,
+  onDelete,
   handleToggleModal,
   totalColumns,
 }) => {
@@ -50,12 +52,16 @@ const Column = ({
       className='Column'
       ref={drop}
       style={{ boxShadow: isOver && '0 0 5px black' }}>
-      <div className='columnHeader'>
-        <h2>{columnTitle}</h2>
-        <button className='trashBtn'>
-          <Trash />
-        </button>
-      </div>
+      <Link
+        to={`/columnPage/${columnTitle.replace(/\s+/g, '')}`}
+        className='columnLink noStyle'>
+        <div className='columnHeader'>
+          <h2>{columnTitle}</h2>
+          <button onClick={(e) => onDelete(columnId, e)} className='trashBtn'>
+            <Trash />
+          </button>
+        </div>
+      </Link>
 
       <ul className='taskList'>
         {tasks

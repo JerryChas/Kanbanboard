@@ -70,6 +70,11 @@ const Kanbanboard = () => {
     setTasks(tasks.filter((t) => t !== taskToDelete));
     setIsModalOpen(false);
   };
+  const handleDeleteColumn = (columnId, e) => {
+    e.preventDefault();
+    setColumns(columns.filter((c) => c.id !== columnId));
+  };
+
   return (
     <main>
       <DndProvider backend={HTML5Backend}>
@@ -87,6 +92,7 @@ const Kanbanboard = () => {
               setTaskTitle={setTaskTitle}
               handleSubmit={handleSubmit}
               handleMoveTask={handleMoveTask}
+              onDelete={handleDeleteColumn}
               handleToggleModal={handleToggleModal}
               totalColumns={columns.length}
             />

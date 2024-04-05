@@ -22,7 +22,7 @@ function App() {
 
       <Routes>
         <Route path='/' element={<Kanbanboard />} />
-        <Route path='/columnPage' element={<ColumnPage />} />
+        <Route path='/columnPage/:title' element={<ColumnPage />} />
         <Route path='*' element={<Missing />} />
       </Routes>
 

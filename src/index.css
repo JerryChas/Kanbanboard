@@ -18,6 +18,11 @@ input[type="reset"] {
   outline: inherit;
 }
 
+.noStyle {
+  color: inherit;
+  text-decoration: inherit;
+}
+
 :root {
   /* Huvudfärg - Mörkblå */
   --primary-color: #192841;
@@ -170,7 +175,12 @@ footer {
     background-color: var(--secondary-color);
     padding: .3rem;
     height: 30px;
+    transition: 200ms;
 
+    &:hover {
+      filter: brightness(1.2);
+      /* Mörkare bakgrundsfärg vid hovring */
+    }
 
 
     .trashBtn {

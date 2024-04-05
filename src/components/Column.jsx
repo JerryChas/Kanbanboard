@@ -42,6 +42,7 @@ const Column = ({
     };
     setTasks((prevTasks) => [...prevTasks, newTask]);
     setTaskTitle('');
+    console.log(tasks);
   };
 
   return (

@@ -29,10 +29,12 @@ const Modal = ({ task, column, onClose, onDelete, setTasks }) => {
         onClick={(e) => {
           e.stopPropagation();
         }}>
-        <div className='columnName'>{column.title}</div>
-        <button className='closeBtn' onClick={onClose}>
-          X
-        </button>
+        <div className='modalHeader'>
+          <div className='columnName'>{column.title}</div>
+          <button className='closeBtn' onClick={onClose}>
+            X
+          </button>
+        </div>
 
         {/* Edit Task Title */}
         <form className='editForm' onSubmit={(e) => handleEdit(task.id, e)}>
@@ -56,7 +58,9 @@ const Modal = ({ task, column, onClose, onDelete, setTasks }) => {
             value={editBody}
             onChange={(e) => setEditBody(e.target.value)}
             placeholder='Add a description...'></textarea>
-          <button type='submit'>Save Changes</button>
+          <button className='saveBtn' type='submit'>
+            Save Changes
+          </button>
         </form>
 
         <p className='date'>{`Created: ${task.createdAt}`}</p>

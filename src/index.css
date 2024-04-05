@@ -346,7 +346,8 @@ footer {
 
 
   .modalContent {
-
+    display: flex;
+    flex-direction: column;
     background-color: var(--secondary-color);
     min-width: 50%;
     min-height: 50%;
@@ -355,13 +356,24 @@ footer {
 
     animation: scale 200ms ease;
 
-    .columnName {
-      border: 1px solid black;
+    .modalHeader {
+      display: flex;
+      flex-direction: row;
+
+      .columnName {
+
+        border: 1px solid black;
+        width: fit-content;
+        padding: 0.3rem;
+
+      }
+
+      .closeBtn {
+        font-weight: 900;
+      }
+
     }
 
-    .closeBtn {
-      font-weight: 900;
-    }
 
     #taskTitle {
       font-size: 2rem;
@@ -373,6 +385,10 @@ footer {
 
     #taskBody {
       background-color: #2d6a4f83;
+    }
+
+    .saveBtn {
+      background-color: #0a4e98;
     }
 
     .deleteBtn {

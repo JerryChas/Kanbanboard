@@ -1,7 +1,5 @@
 //  App.jsx
 
-// CSS
-
 //Components
 import Footer from './components/Footer';
 import Header from './components/Header';

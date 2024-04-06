@@ -89,9 +89,6 @@ const Column = ({ column, columnIndex }) => {
             value={taskTitle}
             onChange={(e) => setTaskTitle(e.target.value)}
           />
-          {/* <button type='submit'>
-            Add
-          </button> */}
         </form>
       )}
 

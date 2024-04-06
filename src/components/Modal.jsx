@@ -3,7 +3,7 @@
 import { useContext, useState } from 'react';
 import DataContext from '../context/DataContext';
 
-const Modal = ({ column }) => {
+const Modal = () => {
   // Context
   const {
     columns,

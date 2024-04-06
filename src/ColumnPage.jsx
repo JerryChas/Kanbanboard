@@ -3,28 +3,18 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams, Link, useLocation } from 'react-router-dom';
 import Column from './components/Column';
-import Task from './components/Task';
 import DataContext from './context/DataContext';
 import Modal from './components/Modal';
 
 const ColumnPage = () => {
   // Context
-  const {
-    tasks,
-    setTasks,
-    columns,
-    setColumns,
-    selectedTask,
-    isModalOpen,
-    isColumnPage,
-    setIsColumnPage,
-    navigate,
-  } = useContext(DataContext);
+  const { columns, selectedTask, isModalOpen, setIsColumnPage } =
+    useContext(DataContext);
 
   //  Params
   const { columnId } = useParams(); // OBS! columnId is now a string
 
-  // Hämtar props från Link
+  // Get props from Link
   const location = useLocation();
   const { columnIndex } = location.state;
 
@@ -32,10 +22,6 @@ const ColumnPage = () => {
   const [currentColumn, setCurrentColumn] = useState(null);
 
   useEffect(() => {
-    {
-      console.log(columnIndex);
-    }
-
     // Hitta den aktuella kolumnen baserat på id från parametrarna
     const foundColumn = columns.find((col) => col.id === Number(columnId));
     setCurrentColumn(foundColumn);
@@ -43,7 +29,7 @@ const ColumnPage = () => {
     setIsColumnPage(true);
 
     return () => setIsColumnPage(false);
-  }, [columns, columnId, setIsColumnPage, columnIndex]);
+  }, [columns, columnId, setIsColumnPage]);
 
   return (
     <main>

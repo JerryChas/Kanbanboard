@@ -1,8 +1,7 @@
 // Kanbanboard.jsx
 
-import { useContext, useRef, useState } from 'react';
+import { useContext } from 'react';
 import Column from './components/Column';
-import taskList from './taskList.js';
 
 import PlusIcon from './Icons/PlusIcon';
 import Modal from './components/Modal.jsx';

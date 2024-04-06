@@ -13,7 +13,7 @@ const Task = ({
   index,
 }) => {
   // Context
-  const { handleToggleModal, handleMoveTask, columns } =
+  const { handleToggleModal, handleMoveTask, columns, isColumnPage } =
     useContext(DataContext);
 
   // Drag and Drop
@@ -29,27 +29,30 @@ const Task = ({
     <>
       <li
         className='Task'
-        ref={drag}
+        ref={isColumnPage ? null : drag}
         id={id}
         stateid={stateid}
         style={{ visibility: isDragging && 'hidden' }}>
-        <button
-          className='navigateTaskBtn'
-          onClick={() => handleMoveTask(id, stateid - 1)}
-          disabled={stateid === 1}>
-          <Left />
-        </button>
+        {!isColumnPage && (
+          <button
+            className='navigateTaskBtn'
+            onClick={() => handleMoveTask(id, stateid - 1)}
+            disabled={stateid === 1}>
+            <Left />
+          </button>
+        )}
         <div className='taskContent' onClick={() => handleToggleModal(id)}>
           <h3>{title}</h3>
           {editedAt ? <p>{editedAt}</p> : <p>{createdAt}</p>}
         </div>
-
-        <button
-          className='navigateTaskBtn'
-          onClick={() => handleMoveTask(id, stateid + 1)}
-          disabled={stateid === columns.length}>
-          <Right />
-        </button>
+        {!isColumnPage && (
+          <button
+            className='navigateTaskBtn'
+            onClick={() => handleMoveTask(id, stateid + 1)}
+            disabled={stateid === columns.length}>
+            <Right />
+          </button>
+        )}
       </li>
     </>
   );

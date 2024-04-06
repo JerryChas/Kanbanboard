@@ -1,3 +1,5 @@
+// DataContext.jsx
+
 import { createContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import taskList from '../taskList.js';
@@ -7,6 +9,7 @@ const DataContext = createContext();
 
 export const DataProvider = ({ children }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isColumnPage, setIsColumnPage] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
   const [taskTitle, setTaskTitle] = useState('');
   const [tasks, setTasks] = useState(taskList);
@@ -68,6 +71,8 @@ export const DataProvider = ({ children }) => {
         setTasks,
         columns,
         setColumns,
+        isColumnPage,
+        setIsColumnPage,
         isModalOpen,
         setIsModalOpen,
         selectedTask,

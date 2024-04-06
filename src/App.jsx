@@ -14,17 +14,23 @@ import Missing from './Missing';
 //  React Router
 import { Routes, Route } from 'react-router-dom';
 import { DataProvider } from './context/DataContext';
-// COMPONENT
+
+//Drag and Drop
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+
 function App() {
   return (
     <div className='App'>
       <Header />
       <DataProvider>
-        <Routes>
-          <Route path='/' element={<Kanbanboard />} />
-          <Route path='/columnPage/:columnId' element={<ColumnPage />} />
-          <Route path='*' element={<Missing />} />
-        </Routes>
+        <DndProvider backend={HTML5Backend}>
+          <Routes>
+            <Route path='/' element={<Kanbanboard />} />
+            <Route path='/columnPage/:columnId' element={<ColumnPage />} />
+            <Route path='*' element={<Missing />} />
+          </Routes>
+        </DndProvider>
       </DataProvider>
       <Footer />
     </div>

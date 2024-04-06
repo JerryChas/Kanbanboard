@@ -1,69 +1,58 @@
+// ColumnPage.jsx
+
 import React, { useContext, useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useLocation } from 'react-router-dom';
 import Column from './components/Column';
 import Task from './components/Task';
 import DataContext from './context/DataContext';
+import Modal from './components/Modal';
 
 const ColumnPage = () => {
   // Context
-  const { tasks, setTasks, columns, setColumns, navigate } =
-    useContext(DataContext);
+  const {
+    tasks,
+    setTasks,
+    columns,
+    setColumns,
+    selectedTask,
+    isModalOpen,
+    isColumnPage,
+    setIsColumnPage,
+    navigate,
+  } = useContext(DataContext);
 
   //  Params
   const { columnId } = useParams(); // OBS! columnId is now a string
 
-  //  State
-  const [columnTasks, setColumnTasks] = useState([]);
-  // const [currentColumn, setCurrentColumn] = useState({});
+  // Hämtar props från Link
+  const location = useLocation();
+  const { columnIndex } = location.state;
 
-  const currentColumn = columns.find((col) => col.id == columnId);
+  // State
+  const [currentColumn, setCurrentColumn] = useState(null);
 
   useEffect(() => {
-    // Filtrera tasks baserat på den valda kolumnens id
-    const filteredTasks = tasks.filter((task) => task.stateid == columnId);
-    setColumnTasks(filteredTasks);
-  }, [tasks, columnId]);
+    {
+      console.log(columnIndex);
+    }
 
-  // useEffect(() => {
-  //   // Hitta kolumn baserat på den valda kolumnens id
-  //   const filteredColumn = columns.find((col) => col.id == columnId);
-  //   setCurrentColumn(filteredColumn);
-  //   console.log(currentColumn);
-  // }, [columns, columnId]);
+    // Hitta den aktuella kolumnen baserat på id från parametrarna
+    const foundColumn = columns.find((col) => col.id === Number(columnId));
+    setCurrentColumn(foundColumn);
+
+    setIsColumnPage(true);
+
+    return () => setIsColumnPage(false);
+  }, [columns, columnId, setIsColumnPage, columnIndex]);
 
   return (
     <main>
-      {console.log(currentColumn) /* DEBUGG */}
-      <div className='Column'>
-        <div className='columnHeader'>
-          <h2>{currentColumn.title}</h2>
-          {/* {columnIndex !== 0 && (
-            <button onClick={(e) => onDelete(columnId, e)} className='trashBtn'>
-              <Trash />
-            </button>
-          )} */}
-        </div>
-
-        <ul className='taskList'>
-          {tasks
-            .filter((task) => task.stateid === columnId) // Filtrera uppgifter baserat på column.id och tasks.stateid
-            .map((task) => (
-              <Task
-              // key={task.id}
-              // id={task.id}
-              // stateid={task.stateid}
-              // title={task.title}
-              // createdAt={task.createdAt}
-              // editedAt={task.editedAt}
-              // handleMoveTask={handleMoveTask}
-              // handleToggleModal={handleToggleModal}
-              // totalColumns={totalColumns}
-              />
-            ))}
-        </ul>
-      </div>
-
       <Link to={'/'}>Go to Home</Link>
+
+      {currentColumn && (
+        <Column column={currentColumn} columnIndex={columnIndex} />
+      )}
+      {isModalOpen && selectedTask && <Modal />}
     </main>
   );
 };

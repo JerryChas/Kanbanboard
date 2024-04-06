@@ -1,16 +1,26 @@
 // Modal.jsx
 
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import DataContext from '../context/DataContext';
 
-const Modal = ({ task, column, onClose, onDelete, setTasks }) => {
-  const [editTitle, setEditTitle] = useState(task.title);
-  const [editBody, setEditBody] = useState(task.body);
+const Modal = ({ column }) => {
+  // Context
+  const {
+    columns,
+    setTasks,
+    handleToggleModal,
+    handleDeleteTask,
+    selectedTask,
+  } = useContext(DataContext);
+
+  const [editTitle, setEditTitle] = useState(selectedTask.title);
+  const [editBody, setEditBody] = useState(selectedTask.body);
 
   const handleEdit = (id, e) => {
     e.preventDefault();
     const date = new Date();
     const editedTask = {
-      ...task,
+      ...selectedTask,
       title: editTitle,
       body: editBody,
       editedAt: date.toLocaleString(),
@@ -19,25 +29,29 @@ const Modal = ({ task, column, onClose, onDelete, setTasks }) => {
       prevTasks.map((t) => (t.id === id ? editedTask : t))
     );
 
-    onClose(true);
+    handleToggleModal(true);
   };
 
   return (
-    <div className='modal' onClick={onClose}>
+    <div className='modal' onClick={handleToggleModal}>
       <div
         className='modalContent'
         onClick={(e) => {
           e.stopPropagation();
         }}>
         <div className='modalHeader'>
-          <div className='columnName'>{column.title}</div>
-          <button className='closeBtn' onClick={onClose}>
+          <div className='columnName'>
+            {columns.find((col) => col.id === selectedTask.stateid).title}
+          </div>
+          <button className='closeBtn' onClick={handleToggleModal}>
             X
           </button>
         </div>
 
         {/* Edit Task Title */}
-        <form className='editForm' onSubmit={(e) => handleEdit(task.id, e)}>
+        <form
+          className='editForm'
+          onSubmit={(e) => handleEdit(selectedTask.id, e)}>
           <label htmlFor='taskTitle'>Title:</label>
           <input
             type='text'
@@ -59,14 +73,18 @@ const Modal = ({ task, column, onClose, onDelete, setTasks }) => {
             onChange={(e) => setEditBody(e.target.value)}
             placeholder='Add a description...'></textarea>
           <button className='saveBtn' type='submit'>
-            Save Changes
+            Save
           </button>
         </form>
 
-        <p className='date'>{`Created: ${task.createdAt}`}</p>
-        {task.editedAt && <p className='date'>{`Edited: ${task.editedAt}`}</p>}
+        <p className='date'>{`Created: ${selectedTask.createdAt}`}</p>
+        {selectedTask.editedAt && (
+          <p className='date'>{`Edited: ${selectedTask.editedAt}`}</p>
+        )}
 
-        <button className='deleteBtn' onClick={onDelete}>
+        <button
+          className='deleteBtn'
+          onClick={() => handleDeleteTask(selectedTask)}>
           Delete
         </button>
       </div>

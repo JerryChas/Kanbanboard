@@ -8,25 +8,25 @@ import ColorIcon from '../Icons/ColorIcon.jsx';
 //  React-dnd
 import { useDrop } from 'react-dnd';
 import { Link } from 'react-router-dom';
+import DataContext from '../context/DataContext';
+import { useContext } from 'react';
 
 //* COMPONENT
-const Column = ({
-  columnTitle,
-  columnIndex,
-  columnId,
-  tasks,
-  setTasks,
-  taskTitle,
-  setTaskTitle,
-  handleMoveTask,
-  onDelete,
-  handleToggleModal,
-  totalColumns,
-}) => {
+const Column = ({ column, columnIndex }) => {
+  // Context
+  const {
+    tasks,
+    setTasks,
+    taskTitle,
+    setTaskTitle,
+    handleMoveTask,
+    handleDeleteColumn,
+  } = useContext(DataContext);
+
   // DROP
   const [{ isOver }, drop] = useDrop(() => ({
     accept: 'task',
-    drop: (task) => handleMoveTask(task.id, columnId),
+    drop: (task) => handleMoveTask(task.id, column.id),
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
     }),
@@ -39,6 +39,7 @@ const Column = ({
     const newTask = {
       id,
       title: taskTitle,
+      body: '',
       createdAt: date.toLocaleString(),
       stateid: 1,
     };
@@ -53,12 +54,14 @@ const Column = ({
       ref={drop}
       style={{ boxShadow: isOver && '0 0 5px black' }}>
       <Link
-        to={`/columnPage/${columnTitle.replace(/\s+/g, '')}`}
+        to={`/columnPage/${column.id}?${column.title.replace(/\s+/g, '-')}`}
         className='columnLink noStyle'>
         <div className='columnHeader'>
-          <h2>{columnTitle}</h2>
+          <h2>{column.title}</h2>
           {columnIndex !== 0 && (
-            <button onClick={(e) => onDelete(columnId, e)} className='trashBtn'>
+            <button
+              onClick={(e) => handleDeleteColumn(column.id, e)}
+              className='trashBtn'>
               <Trash />
             </button>
           )}
@@ -67,19 +70,9 @@ const Column = ({
 
       <ul className='taskList'>
         {tasks
-          .filter((task) => task.stateid === columnId) // Filtrera uppgifter baserat på column.id och tasks.stateid
-          .map((task) => (
-            <Task
-              key={task.id}
-              id={task.id}
-              stateid={task.stateid}
-              title={task.title}
-              createdAt={task.createdAt}
-              editedAt={task.editedAt}
-              handleMoveTask={handleMoveTask}
-              handleToggleModal={handleToggleModal}
-              totalColumns={totalColumns}
-            />
+          .filter((task) => task.stateid === column.id) // Filtrera uppgifter baserat på column.id och tasks.stateid
+          .map((task, index) => (
+            <Task key={task.id} task={task} index={index} />
           ))}
       </ul>
       {/* ADD NEW TASK */}
@@ -95,7 +88,7 @@ const Column = ({
             value={taskTitle}
             onChange={(e) => setTaskTitle(e.target.value)}
           />
-          {/* <button type='submit' onClick={handleSubmit}>
+          {/* <button type='submit'>
             Add
           </button> */}
         </form>

@@ -1,23 +1,21 @@
 //  Task.jsx
 
 import { Left, Right } from '../Icons/ArrowIcons';
+import DataContext from '../context/DataContext';
+import { useContext } from 'react';
 
 //  React-dnd
-import { useDrag, useDragLayer } from 'react-dnd';
-import CustomDragLayer from '../CustomDragLayer';
-import Modal from './Modal';
+import { useDrag } from 'react-dnd';
 
 // COMPONENT
 const Task = ({
-  id,
-  stateid,
-  title,
-  createdAt,
-  editedAt,
-  handleMoveTask,
-  handleToggleModal,
-  totalColumns,
+  task: { id, stateid, title, body, createdAt, editedAt },
+  index,
 }) => {
+  // Context
+  const { handleToggleModal, handleMoveTask, columns } =
+    useContext(DataContext);
+
   // Drag and Drop
   const [{ isDragging }, drag] = useDrag(() => ({
     type: 'task',
@@ -27,16 +25,8 @@ const Task = ({
     }),
   }));
 
-  const { item, offset } = useDragLayer((monitor) => ({
-    isDragging: monitor.isDragging(),
-    item: monitor.getItem(),
-    offset: monitor.getSourceClientOffset(),
-  }));
-
   return (
     <>
-      {/* {isDragging && <CustomDragLayer item={item} offset={offset} />} */}
-
       <li
         className='Task'
         ref={drag}
@@ -57,7 +47,7 @@ const Task = ({
         <button
           className='navigateTaskBtn'
           onClick={() => handleMoveTask(id, stateid + 1)}
-          disabled={stateid === totalColumns}>
+          disabled={stateid === columns.length}>
           <Right />
         </button>
       </li>

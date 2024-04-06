@@ -13,19 +13,19 @@ import Missing from './Missing';
 
 //  React Router
 import { Routes, Route } from 'react-router-dom';
-
+import { DataProvider } from './context/DataContext';
 // COMPONENT
 function App() {
   return (
     <div className='App'>
       <Header />
-
-      <Routes>
-        <Route path='/' element={<Kanbanboard />} />
-        <Route path='/columnPage/:title' element={<ColumnPage />} />
-        <Route path='*' element={<Missing />} />
-      </Routes>
-
+      <DataProvider>
+        <Routes>
+          <Route path='/' element={<Kanbanboard />} />
+          <Route path='/columnPage/:columnId' element={<ColumnPage />} />
+          <Route path='*' element={<Missing />} />
+        </Routes>
+      </DataProvider>
       <Footer />
     </div>
   );

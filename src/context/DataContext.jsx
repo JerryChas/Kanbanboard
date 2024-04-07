@@ -2,6 +2,8 @@
 
 import { createContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Importera standardstilmall
 import taskList from '../taskList.js';
 
 // Skapa en ny context
@@ -62,13 +64,69 @@ export const DataProvider = ({ children }) => {
     const id = columns.length ? columns[columns.length - 1].id + 1 : 1;
     const newCol = { id, title: `Column ${id}` };
     const allColumns = [...columns, newCol];
+
+    updateColumnIds();
     setColumns(allColumns);
   };
   //* DELETE COLUMN
   const handleDeleteColumn = (columnId, e) => {
     e.preventDefault();
-    setColumns(columns.filter((c) => c.id !== columnId));
-    navigate('/');
+
+    // Alert if column contains tasks and
+    const tasksInColumn = tasks.filter((task) => task.stateid === columnId);
+    console.log(tasksInColumn);
+    console.log(columns);
+    if (tasksInColumn.length > 0) {
+      confirmAlert({
+        title: 'Warning',
+        message:
+          'This action will move all tasks in this column to the first.  Do you want to continue?',
+        buttons: [
+          {
+            label: 'Do it!',
+            onClick: () => {
+              tasksInColumn.map((task) => handleMoveTask(task.id, 1));
+              setColumns(columns.filter((c) => c.id !== columnId));
+              updateColumnIds();
+              updateTaskStateIds(columnId);
+              navigate('/');
+            },
+          },
+          {
+            label: 'Abort',
+            onClick: () => {
+              return;
+            },
+          },
+        ],
+      });
+    } else {
+      setColumns(columns.filter((c) => c.id !== columnId));
+      updateColumnIds();
+      updateTaskStateIds(columnId);
+      navigate('/');
+    }
+  };
+
+  //* UPDATING TASK STATE AND COLUMN IDS *//
+  //useful when deleting och adding columns.
+  const updateColumnIds = () => {
+    setColumns((prevColumns) =>
+      prevColumns.map((column, index) => ({
+        ...column,
+        id: index + 1,
+      }))
+    );
+  };
+  const updateTaskStateIds = (deletedColumnId) => {
+    setTasks((prevTasks) =>
+      prevTasks.map((task) => {
+        if (task.stateid > deletedColumnId) {
+          return { ...task, stateid: task.stateid - 1 };
+        }
+        return task;
+      })
+    );
   };
 
   return (

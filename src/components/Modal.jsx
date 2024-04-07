@@ -39,14 +39,12 @@ const Modal = () => {
         onClick={(e) => {
           e.stopPropagation();
         }}>
-        <div className='modalHeader'>
-          <div className='columnName'>
-            {columns.find((col) => col.id === selectedTask.stateid).title}
-          </div>
-          <button className='closeBtn' onClick={handleToggleModal}>
-            X
-          </button>
+        <div className='columnName'>
+          {columns.find((col) => col.id === selectedTask.stateid).title}
         </div>
+        <button className='closeBtn' onClick={handleToggleModal}>
+          &times;
+        </button>
 
         {/* Edit Task Title */}
         <form
@@ -72,21 +70,23 @@ const Modal = () => {
             value={editBody}
             onChange={(e) => setEditBody(e.target.value)}
             placeholder='Add a description...'></textarea>
-          <button className='saveBtn' type='submit'>
-            Save
-          </button>
+          {/* DATESTAMP */}
+          <p className='date'>{`Created: ${selectedTask.createdAt}`}</p>
+          {selectedTask.editedAt && (
+            <p className='date'>{`Edited: ${selectedTask.editedAt}`}</p>
+          )}
+
+          <div className='btnsContainer'>
+            <button className='saveBtn' type='submit'>
+              Save
+            </button>
+            <button
+              className='deleteBtn'
+              onClick={() => handleDeleteTask(selectedTask)}>
+              Delete
+            </button>
+          </div>
         </form>
-
-        <p className='date'>{`Created: ${selectedTask.createdAt}`}</p>
-        {selectedTask.editedAt && (
-          <p className='date'>{`Edited: ${selectedTask.editedAt}`}</p>
-        )}
-
-        <button
-          className='deleteBtn'
-          onClick={() => handleDeleteTask(selectedTask)}>
-          Delete
-        </button>
       </div>
     </div>
   );

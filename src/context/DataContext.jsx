@@ -48,6 +48,7 @@ export const DataProvider = ({ children }) => {
   const handleDeleteColumn = (columnId, e) => {
     e.preventDefault();
     setColumns(columns.filter((c) => c.id !== columnId));
+    navigate('/');
   };
   const handleAddColumn = () => {
     const id = columns.length ? columns[columns.length - 1].id + 1 : 1;

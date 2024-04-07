@@ -5,6 +5,7 @@ import { useParams, Link, useLocation } from 'react-router-dom';
 import Column from './components/Column';
 import DataContext from './context/DataContext';
 import Modal from './components/Modal';
+import BackIcon from './Icons/BackIcon';
 
 const ColumnPage = () => {
   // Context
@@ -32,8 +33,12 @@ const ColumnPage = () => {
   }, [columns, columnId, setIsColumnPage]);
 
   return (
-    <main>
-      <Link to={'/'}>Go to Home</Link>
+    <main className='ColumnPage'>
+      <Link to={'/'}>
+        <div className='backButton'>
+          <BackIcon />
+        </div>
+      </Link>
 
       {currentColumn && (
         <Column column={currentColumn} columnIndex={columnIndex} />

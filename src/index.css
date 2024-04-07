@@ -470,6 +470,31 @@ footer {
 }
 
 
+.ColumnPage {
+
+  padding: 1rem;
+
+  .backButton {
+    /* border: 1px solid black; */
+    position: absolute;
+    top: 0;
+    left: 50%;
+    margin: 5px;
+    transform: translate(-50%, 0%);
+    text-decoration: none;
+    color: var(--text-color-secondary);
+    width: 40px;
+    transition: 200ms;
+
+    &:hover {
+      color: var(--text-color-primary);
+      transform: translate(-50%, 0%) scale(1.1) rotateZ(5deg);
+    }
+
+  }
+
+
+}
 
 @keyframes fade {
   0% {

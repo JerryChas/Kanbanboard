@@ -9,18 +9,21 @@ import ColorIcon from '../Icons/ColorIcon.jsx';
 import { useDrop } from 'react-dnd';
 import { Link } from 'react-router-dom';
 import DataContext from '../context/DataContext';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 
 //* COMPONENT
 const Column = ({ column, columnIndex }) => {
+  const [editColumnTitle, setEditColumnTitle] = useState(column.title);
   // Context
   const {
     tasks,
     setTasks,
+    setColumns,
     taskTitle,
     setTaskTitle,
     handleMoveTask,
     handleDeleteColumn,
+    isColumnPage,
   } = useContext(DataContext);
 
   // DROP
@@ -48,6 +51,12 @@ const Column = ({ column, columnIndex }) => {
     console.log(tasks);
   };
 
+  const handleColumnTitleChange = (id, newTitle) => {
+    setColumns((prevCols) =>
+      prevCols.map((col) => (col.id === id ? { ...col, title: newTitle } : col))
+    );
+  };
+
   return (
     <div
       className='Column'
@@ -58,7 +67,20 @@ const Column = ({ column, columnIndex }) => {
         className='columnLink noStyle'
         state={{ columnIndex }}>
         <div className='columnHeader'>
-          <h2>{column.title}</h2>
+          {isColumnPage ? (
+            <input
+              type='text'
+              value={editColumnTitle}
+              maxLength={15}
+              required
+              autoComplete='off'
+              onChange={(e) => setEditColumnTitle(e.target.value)}
+              onBlur={() => handleColumnTitleChange(column.id, editColumnTitle)}
+            />
+          ) : (
+            <h2>{column.title}</h2>
+          )}
+
           {columnIndex !== 0 && (
             <button
               onClick={(e) => handleDeleteColumn(column.id, e)}

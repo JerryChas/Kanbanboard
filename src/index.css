@@ -182,8 +182,29 @@ footer {
       /* Mörkare bakgrundsfärg vid hovring */
     }
 
+    input {
+      /* border: none; */
+
+      height: inherit;
+
+      background: none;
+      color: inherit;
+      font-size: 1.2rem;
+      font-weight: inherit;
+      padding: 0;
+      margin: 0;
+      outline: none;
+      width: 200px;
+
+
+      &:focus {
+        border: 2px solid var(--primary-color);
+        color: var(--text-color-primary);
+      }
+    }
 
     .trashBtn {
+
       width: 1.2rem;
 
       &:hover {

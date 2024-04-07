@@ -31,7 +31,9 @@ export const DataProvider = ({ children }) => {
   //Navigate
   const navigate = useNavigate();
 
-  // Functions
+  //********** FUNCTIONS **********//
+
+  //* TOGGLE MODAL
   const handleToggleModal = (TaskId) => {
     if (isModalOpen) {
       return setIsModalOpen(false);
@@ -41,28 +43,32 @@ export const DataProvider = ({ children }) => {
     setIsModalOpen(true);
   };
 
-  const handleDeleteTask = (taskToDelete) => {
-    setTasks(tasks.filter((t) => t !== taskToDelete));
-    setIsModalOpen(false);
-  };
-  const handleDeleteColumn = (columnId, e) => {
-    e.preventDefault();
-    setColumns(columns.filter((c) => c.id !== columnId));
-    navigate('/');
-  };
-  const handleAddColumn = () => {
-    const id = columns.length ? columns[columns.length - 1].id + 1 : 1;
-    const newCol = { id, title: `Column ${id}` };
-    const allColumns = [...columns, newCol];
-    setColumns(allColumns);
-  };
-
+  //* MOVE TASK
   const handleMoveTask = (taskToMove, newState) => {
     setTasks((prevTasks) =>
       prevTasks.map((task) =>
         task.id === taskToMove ? { ...task, stateid: newState } : task
       )
     );
+  };
+  //* DELETE TASK
+  const handleDeleteTask = (taskToDelete) => {
+    setTasks(tasks.filter((t) => t !== taskToDelete));
+    setIsModalOpen(false);
+  };
+
+  //* ADD COLUMN
+  const handleAddColumn = () => {
+    const id = columns.length ? columns[columns.length - 1].id + 1 : 1;
+    const newCol = { id, title: `Column ${id}` };
+    const allColumns = [...columns, newCol];
+    setColumns(allColumns);
+  };
+  //* DELETE COLUMN
+  const handleDeleteColumn = (columnId, e) => {
+    e.preventDefault();
+    setColumns(columns.filter((c) => c.id !== columnId));
+    navigate('/');
   };
 
   return (

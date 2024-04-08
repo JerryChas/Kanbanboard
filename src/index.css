@@ -496,6 +496,12 @@ footer {
 
 }
 
+.MissingPage {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
 @keyframes fade {
   0% {
     opacity: 0;

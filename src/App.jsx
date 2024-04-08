@@ -24,7 +24,7 @@ function App() {
       <DataProvider>
         <DndProvider backend={HTML5Backend}>
           <Routes>
-            <Route path='/' element={<Kanbanboard />} />
+            <Route index element={<Kanbanboard />} />
             <Route path='/columnPage/:columnId' element={<ColumnPage />} />
             <Route path='*' element={<Missing />} />
           </Routes>

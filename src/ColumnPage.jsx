@@ -1,7 +1,7 @@
 // ColumnPage.jsx
 
 import React, { useContext, useEffect, useState } from 'react';
-import { useParams, Link, useLocation } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import Column from './components/Column';
 import DataContext from './context/DataContext';
 import Modal from './components/Modal';
@@ -15,18 +15,18 @@ const ColumnPage = () => {
   //  Params
   const { columnId } = useParams(); // OBS! columnId is now a string
 
-  // Get props from Link
-  const location = useLocation();
-  const { columnIndex } = location.state;
-
   // State
   const [currentColumn, setCurrentColumn] = useState(null);
+  const [currentColumnIndex, setCurrentColumnIndex] = useState(null);
 
   useEffect(() => {
-    // Hitta den aktuella kolumnen baserat på id från parametrarna
-    const foundColumn = columns.find((col) => col.id === Number(columnId));
-    setCurrentColumn(foundColumn);
+    // Find index of current column
+    const foundIndex = columns.findIndex((col) => col.id === Number(columnId));
+    // Find current column
+    const foundColumn = columns[foundIndex];
 
+    setCurrentColumn(foundColumn);
+    setCurrentColumnIndex(foundIndex);
     setIsColumnPage(true);
 
     return () => setIsColumnPage(false);
@@ -41,7 +41,7 @@ const ColumnPage = () => {
       </Link>
 
       {currentColumn && (
-        <Column column={currentColumn} columnIndex={columnIndex} />
+        <Column column={currentColumn} columnIndex={currentColumnIndex} />
       )}
       {isModalOpen && selectedTask && <Modal />}
     </main>

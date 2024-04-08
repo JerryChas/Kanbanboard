@@ -64,8 +64,7 @@ const Column = ({ column, columnIndex }) => {
       style={{ boxShadow: isOver && '0 0 5px black' }}>
       <Link
         to={`/columnPage/${column.id}?${column.title.replace(/\s+/g, '-')}`}
-        className='columnLink noStyle'
-        state={{ columnIndex }}>
+        className='columnLink noStyle'>
         <div className='columnHeader'>
           {isColumnPage ? (
             <input

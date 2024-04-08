@@ -30,7 +30,7 @@ function App() {
           </Routes>
         </DndProvider>
       </DataProvider>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }

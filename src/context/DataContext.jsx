@@ -1,11 +1,12 @@
 // DataContext.jsx
 
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Importera standardstilmall
 import taskList from '../taskList.js';
 import { getData, saveData } from '../localStorage.js';
+import { Right } from '../Icons/ArrowIcons.jsx';
 
 // Skapa en ny context
 const DataContext = createContext();
@@ -15,7 +16,6 @@ export const DataProvider = ({ children }) => {
   const [isColumnPage, setIsColumnPage] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
   const [taskTitle, setTaskTitle] = useState('');
-
   //Get Data form localstorage or default list.
   const [tasks, setTasks] = useState(getData('TASKS') || taskList);
   const [columns, setColumns] = useState(
@@ -34,6 +34,8 @@ export const DataProvider = ({ children }) => {
       },
     ]
   );
+
+  const containerRef = useRef(null);
 
   // Save Data to localStorage whenever tasks or columns are updated
   useEffect(() => {
@@ -78,6 +80,20 @@ export const DataProvider = ({ children }) => {
 
     updateColumnIds();
     setColumns(allColumns);
+
+    // Scroll to the end som columnContainer
+    setTimeout(() => {
+      if (containerRef.current) {
+        const scrollWidth = containerRef.current.scrollWidth;
+        console.log('after press' + scrollWidth); //! DEBUGG
+        containerRef.current.scrollTo({
+          left: scrollWidth,
+          behavior: 'smooth',
+        });
+      } else {
+        console.log('No valid container found');
+      }
+    }, 100);
   };
   //* DELETE COLUMN
   const handleDeleteColumn = (columnId, e) => {
@@ -160,6 +176,7 @@ export const DataProvider = ({ children }) => {
         handleDeleteTask,
         handleAddColumn,
         handleDeleteColumn,
+        containerRef,
         navigate,
       }}>
       {children}

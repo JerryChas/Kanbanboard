@@ -9,13 +9,13 @@ import DataContext from './context/DataContext';
 
 const Kanbanboard = () => {
   // Context
-  const { columns, isModalOpen, selectedTask, handleAddColumn } =
+  const { columns, isModalOpen, selectedTask, handleAddColumn, containerRef } =
     useContext(DataContext);
 
   return (
     <main>
       <div className='fadeEdge'></div>
-      <div className='columnsContainer'>
+      <div className='columnsContainer' ref={containerRef}>
         {columns.map((col, index) => (
           <Column
             key={col.id}

@@ -1,10 +1,11 @@
 // DataContext.jsx
 
-import { createContext, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Importera standardstilmall
 import taskList from '../taskList.js';
+import { getData, saveData } from '../localStorage.js';
 
 // Skapa en ny context
 const DataContext = createContext();
@@ -14,21 +15,31 @@ export const DataProvider = ({ children }) => {
   const [isColumnPage, setIsColumnPage] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
   const [taskTitle, setTaskTitle] = useState('');
-  const [tasks, setTasks] = useState(taskList);
-  const [columns, setColumns] = useState([
-    {
-      id: 1,
-      title: 'To Do',
-    },
-    {
-      id: 2,
-      title: 'In Progress',
-    },
-    {
-      id: 3,
-      title: 'Done',
-    },
-  ]);
+
+  //Get Data form localstorage or default list.
+  const [tasks, setTasks] = useState(getData('TASKS') || taskList);
+  const [columns, setColumns] = useState(
+    getData('COLUMNS') || [
+      {
+        id: 1,
+        title: 'To Do',
+      },
+      {
+        id: 2,
+        title: 'In Progress',
+      },
+      {
+        id: 3,
+        title: 'Done',
+      },
+    ]
+  );
+
+  // Save Data to localStorage whenever tasks or columns are updated
+  useEffect(() => {
+    saveData(columns, 'COLUMNS');
+    saveData(tasks, 'TASKS');
+  }, [columns, tasks]);
 
   //Navigate
   const navigate = useNavigate();

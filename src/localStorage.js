@@ -1,6 +1,8 @@
-export const fetchData = (STORAGE_KEY) => {
+// LocalStorage.js
+
+export const getData = (STORAGE_KEY) => {
   const data = localStorage.getItem(STORAGE_KEY);
-  return data ? JSON.parse(data) : [];
+  return data && JSON.parse(data);
 };
 
 export const saveData = (dataToSave, STORAGE_KEY) => {

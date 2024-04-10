@@ -21,9 +21,11 @@ const Column = ({ column, columnIndex }) => {
     setColumns,
     taskTitle,
     setTaskTitle,
+    handleDelete,
     handleMoveTask,
     handleDeleteColumn,
     isColumnPage,
+    deletedItem,
   } = useContext(DataContext);
 
   // DROP
@@ -59,7 +61,7 @@ const Column = ({ column, columnIndex }) => {
 
   return (
     <div
-      className='Column'
+      className={`Column ${deletedItem === column.id ? 'deleted' : ''}`}
       ref={drop}
       style={{ boxShadow: isOver && '0 0 5px black' }}>
       <Link
@@ -82,7 +84,7 @@ const Column = ({ column, columnIndex }) => {
 
           {columnIndex !== 0 && (
             <button
-              onClick={(e) => handleDeleteColumn(column.id, e)}
+              onClick={(e) => handleDelete(handleDeleteColumn, column.id, e)}
               className='trashBtn'>
               <Trash />
             </button>

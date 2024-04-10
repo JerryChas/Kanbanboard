@@ -14,6 +14,7 @@ const DataContext = createContext();
 export const DataProvider = ({ children }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isColumnPage, setIsColumnPage] = useState(false);
+  const [deletedItem, setDeletedItem] = useState(null);
   const [selectedTask, setSelectedTask] = useState(null);
   const [taskTitle, setTaskTitle] = useState('');
   //Get Data form localstorage or default list.
@@ -66,6 +67,17 @@ export const DataProvider = ({ children }) => {
       )
     );
   };
+
+  const handleDelete = (deleteFunction, id, e) => {
+    e.preventDefault();
+    setDeletedItem(id);
+
+    setTimeout(() => {
+      deleteFunction(id);
+      setDeletedItem(null);
+    }, 200);
+  };
+
   //* DELETE TASK
   const handleDeleteTask = (taskToDelete) => {
     setTasks(tasks.filter((t) => t !== taskToDelete));
@@ -81,28 +93,24 @@ export const DataProvider = ({ children }) => {
     updateColumnIds();
     setColumns(allColumns);
 
-    // Scroll to the end som columnContainer
+    // AUTOSCROLL - to last column when adding a new one
     setTimeout(() => {
       if (containerRef.current) {
         const scrollWidth = containerRef.current.scrollWidth;
-        console.log('after press' + scrollWidth); //! DEBUGG
+        // console.log('after press' + scrollWidth); //! DEBUGG
         containerRef.current.scrollTo({
           left: scrollWidth,
           behavior: 'smooth',
         });
-      } else {
-        console.log('No valid container found');
       }
-    }, 100);
+    }, 1);
   };
   //* DELETE COLUMN
-  const handleDeleteColumn = (columnId, e) => {
-    e.preventDefault();
-
-    // Alert if column contains tasks and
+  const handleDeleteColumn = (columnId) => {
+    // Alert if column contains tasks
     const tasksInColumn = tasks.filter((task) => task.stateid === columnId);
-    console.log(tasksInColumn);
-    console.log(columns);
+    // console.log(tasksInColumn); //! DEBUGG
+    // console.log(columns); //! DEBUGG
     if (tasksInColumn.length > 0) {
       confirmAlert({
         title: 'Warning',
@@ -166,11 +174,14 @@ export const DataProvider = ({ children }) => {
         isColumnPage,
         setIsColumnPage,
         isModalOpen,
+        setDeletedItem,
+        deletedItem,
         setIsModalOpen,
         selectedTask,
         setSelectedTask,
         taskTitle,
         setTaskTitle,
+        handleDelete,
         handleToggleModal,
         handleMoveTask,
         handleDeleteTask,

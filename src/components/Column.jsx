@@ -63,10 +63,12 @@ const Column = ({ column, columnIndex }) => {
     <div
       className={`Column ${deletedItem === column.id ? 'deleted' : ''}`}
       ref={drop}
-      style={{ boxShadow: isOver && '0 0 5px black' }}>
+      style={{ boxShadow: isOver && '0 0 5px black' }}
+    >
       <Link
-        to={`/columnPage/${column.id}?${column.title.replace(/\s+/g, '-')}`}
-        className='columnLink noStyle'>
+        to={`/column/${column.id}?${column.title.replace(/\s+/g, '-')}`}
+        className='columnLink noStyle'
+      >
         <div className='columnHeader'>
           {isColumnPage ? (
             <input
@@ -85,7 +87,8 @@ const Column = ({ column, columnIndex }) => {
           {columnIndex !== 0 && (
             <button
               onClick={(e) => handleDelete(handleDeleteColumn, column.id, e)}
-              className='trashBtn'>
+              className='trashBtn'
+            >
               <Trash />
             </button>
           )}

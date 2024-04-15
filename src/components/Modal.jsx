@@ -2,6 +2,7 @@
 
 import { useContext, useState } from 'react';
 import DataContext from '../context/DataContext';
+import { Link } from 'react-router-dom';
 
 const Modal = () => {
   // Context
@@ -38,10 +39,14 @@ const Modal = () => {
         className='modalContent'
         onClick={(e) => {
           e.stopPropagation();
-        }}>
+        }}
+      >
         <div className='columnName'>
           {columns.find((col) => col.id === selectedTask.stateid).title}
         </div>
+        <Link to={`/task/${selectedTask.id}`} className='taskLink noStyle'>
+          Go to Task
+        </Link>
         <button className='closeBtn' onClick={handleToggleModal}>
           &times;
         </button>
@@ -49,7 +54,8 @@ const Modal = () => {
         {/* Edit Task Title */}
         <form
           className='editForm'
-          onSubmit={(e) => handleEdit(selectedTask.id, e)}>
+          onSubmit={(e) => handleEdit(selectedTask.id, e)}
+        >
           <label htmlFor='taskTitle'>Title:</label>
           <input
             type='text'
@@ -69,7 +75,8 @@ const Modal = () => {
             autoComplete='off'
             value={editBody}
             onChange={(e) => setEditBody(e.target.value)}
-            placeholder='Add a description...'></textarea>
+            placeholder='Add a description...'
+          ></textarea>
           {/* DATESTAMP */}
           <p className='date'>{`Created: ${selectedTask.createdAt}`}</p>
           {selectedTask.editedAt && (
@@ -82,7 +89,8 @@ const Modal = () => {
             </button>
             <button
               className='deleteBtn'
-              onClick={() => handleDeleteTask(selectedTask)}>
+              onClick={() => handleDeleteTask(selectedTask)}
+            >
               Delete
             </button>
           </div>

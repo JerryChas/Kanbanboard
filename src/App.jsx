@@ -16,6 +16,7 @@ import { DataProvider } from './context/DataContext';
 //Drag and Drop
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import TaskPage from './TaskPage';
 
 function App() {
   return (
@@ -25,7 +26,8 @@ function App() {
         <DndProvider backend={HTML5Backend}>
           <Routes>
             <Route index element={<Kanbanboard />} />
-            <Route path='/columnPage/:columnId' element={<ColumnPage />} />
+            <Route path='/column/:columnId' element={<ColumnPage />} />
+            <Route path='/task/:taskId' element={<TaskPage />} />
             <Route path='*' element={<Missing />} />
           </Routes>
         </DndProvider>
